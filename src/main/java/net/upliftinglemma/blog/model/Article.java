@@ -1,11 +1,18 @@
 package net.upliftinglemma.blog.model;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.hateoas.Identifiable;
 
 @Entity
@@ -16,9 +23,17 @@ public class Article implements Identifiable<Long> {
     private String title;
     private String body;
 
+    private List<Comment> comments;
+
+    private Date createdAt;
+    private Date updatedAt;
+    
+    public Article() {
+        this.comments = new ArrayList<>();
+    }
+
     @Override
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -27,6 +42,7 @@ public class Article implements Identifiable<Long> {
         this.id = id;
     }
 
+    @ManyToOne
     public Person getAuthor() {
         return author;
     }
@@ -51,6 +67,36 @@ public class Article implements Identifiable<Long> {
         this.body = body;
     }
 
+
+    @OneToMany
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(final List<Comment> comments) {
+        this.comments = comments;
+    }
+
+
+    @CreationTimestamp
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(final Date publishedAt) {
+        this.createdAt = publishedAt;
+    }
+
+    @UpdateTimestamp
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(final Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+
     @Override
     public boolean equals(final Object obj) {
         if (obj == null)
@@ -67,25 +113,13 @@ public class Article implements Identifiable<Long> {
         return Objects.equals(this.getId(), other.getId())
                 && Objects.equals(this.getAuthor(), other.getAuthor())
                 && Objects.equals(this.getTitle(), other.getTitle())
-                && Objects.equals(this.getBody(), other.getBody());
+                && Objects.equals(this.getBody(), other.getBody())
+                && Objects.equals(this.getComments(), other.getComments());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getId(), this.getAuthor(), this.getTitle(),
-                this.getBody());
-    }
-
-    public static Article createWithId(final Long id) {
-        final Article article = new Article();
-        final Person author = Person.createWithId(1L);
-
-        article.setId(id);
-        article.setAuthor(author);
-        article.setTitle("Hello World");
-        article.setBody("Lorem ipsum dolor sit amen.");
-
-        return article;
+        return Objects.hash(this.getId(), this.getAuthor(), this.getTitle(), this.getBody(), this.getComments());
     }
 
 }

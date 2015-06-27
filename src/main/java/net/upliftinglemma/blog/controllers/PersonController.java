@@ -1,11 +1,11 @@
 package net.upliftinglemma.blog.controllers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.upliftinglemma.blog.assemblers.PersonResourceAssembler;
 import net.upliftinglemma.blog.model.Person;
 import net.upliftinglemma.blog.model.PersonResource;
+import net.upliftinglemma.blog.services.PersonService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -19,23 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/person")
 public class PersonController {
     
+    @Autowired private PersonService personService;
     @Autowired private PersonResourceAssembler personResourceAssembler;
     
     @RequestMapping(method=RequestMethod.GET)
     public List<PersonResource> showAll() {
-        final List<Person> persons = Arrays.asList(
-                Person.createWithId(1L),
-                Person.createWithId(2L),
-                Person.createWithId(3L)
-                );
-        
-        return personResourceAssembler.toResources(persons);
+        return personResourceAssembler.toResources(personService.findAll());
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public PersonResource show(@PathVariable Long id) {
-        final Person person = Person.createWithId(id);
-        return personResourceAssembler.toResource(person);
+    public PersonResource show(@PathVariable final Long id) {
+        return personResourceAssembler.toResource(personService.findOne(id));
     }
 
 }

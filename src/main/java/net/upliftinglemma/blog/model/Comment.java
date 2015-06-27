@@ -1,11 +1,15 @@
 package net.upliftinglemma.blog.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.hateoas.Identifiable;
 
 @Entity
@@ -14,6 +18,9 @@ public class Comment implements Identifiable<Long> {
     private Long id;
     private Person author;
     private String body;
+
+    private Date createdAt;
+    private Date updatedAt;
 
 
     @Override
@@ -26,6 +33,7 @@ public class Comment implements Identifiable<Long> {
         this.id = id;
     }
 
+    @ManyToOne
     public Person getAuthor() {
         return author;
     }
@@ -40,6 +48,25 @@ public class Comment implements Identifiable<Long> {
 
     public void setBody(final String body) {
         this.body = body;
+    }
+
+
+    @CreationTimestamp
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(final Date publishedAt) {
+        this.createdAt = publishedAt;
+    }
+
+    @UpdateTimestamp
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(final Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
     
     
@@ -64,18 +91,6 @@ public class Comment implements Identifiable<Long> {
     @Override
     public int hashCode() {
         return Objects.hash(this.getId(), this.getAuthor(), this.getBody());
-    }
-
-    
-    public static Comment createWithId(final Long id) {
-        final Comment comment = new Comment();
-        final Person author = Person.createWithId(1L);
-        
-        comment.setId(id);
-        comment.setAuthor(author);
-        comment.setBody("Lorem ipsum dolor sit amen.");
-        
-        return comment;
     }
 
 }

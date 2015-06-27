@@ -55,13 +55,5 @@ public class Person implements Identifiable<Long> {
     public int hashCode() {
         return Objects.hash(this.getId(), this.getName());
     }
-    
-    
-    public static Person createWithId(final Long id) {
-        final Person person = new Person();
-        person.setId(id);
-        person.setName("John Smith");
-        return person;
-    }
 
 }

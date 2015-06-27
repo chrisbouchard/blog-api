@@ -1,14 +1,14 @@
 package net.upliftinglemma.blog.controllers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.upliftinglemma.blog.assemblers.ArticleResourceAssembler;
 import net.upliftinglemma.blog.assemblers.CommentResourceAssembler;
 import net.upliftinglemma.blog.model.Article;
 import net.upliftinglemma.blog.model.ArticleResource;
-import net.upliftinglemma.blog.model.Comment;
 import net.upliftinglemma.blog.model.CommentResource;
+import net.upliftinglemma.blog.services.ArticleService;
+import net.upliftinglemma.blog.services.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -22,35 +22,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/article")
 public class ArticleController {
 
+    @Autowired private ArticleService articleService;
     @Autowired private ArticleResourceAssembler articleResourceAssembler;
+
+    @Autowired private CommentService commentService;
     @Autowired private CommentResourceAssembler commentResourceAssembler;
     
     @RequestMapping(method=RequestMethod.GET)
     public List<ArticleResource> showAll() {
-        final List<Article> articles = Arrays.asList(
-                Article.createWithId(1L),
-                Article.createWithId(2L),
-                Article.createWithId(3L)
-                );
-        
-        return articleResourceAssembler.toResources(articles);
+        return articleResourceAssembler.toResources(articleService.findAll());
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public ArticleResource show(@PathVariable Long id) {
-        final Article article = Article.createWithId(id);
-        return articleResourceAssembler.toResource(article);
+        return articleResourceAssembler.toResource(articleService.findOne(id));
     }
     
     @RequestMapping(value="/{id}/comments", method=RequestMethod.GET)
     public List<CommentResource> showComments() {
-        final List<Comment> comments = Arrays.asList(
-                Comment.createWithId(1L),
-                Comment.createWithId(2L),
-                Comment.createWithId(3L)
-                );
-        
-        return commentResourceAssembler.toResources(comments);
+        // TODO: Only get comments for this article.
+        return commentResourceAssembler.toResources(commentService.findAll());
     }
 
 }

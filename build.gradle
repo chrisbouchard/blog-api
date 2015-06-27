@@ -25,14 +25,22 @@ jar {
 dependencies {
     compile 'javax:javaee-api:7.0'
     
-    compile 'org.hibernate:hibernate-core:4.3.+'
-    
+    compile 'org.springframework:spring-orm:4.1.+'
     compile 'org.springframework.boot:spring-boot-starter-web:1.2.+'
+    compile 'org.springframework.data:spring-data-jpa:1.8.0.RELEASE'
     compile 'org.springframework.hateoas:spring-hateoas:0.17.+'
     compile 'org.springframework.plugin:spring-plugin-core:1.2.+'
 
     testCompile 'junit:junit:4.+'
+
     testCompile 'org.mockito:mockito-all:2.0.+'
+    
+    runtime 'org.aspectj:aspectjweaver:1.8.+'
+
+    runtime 'org.hibernate:hibernate-core:4.3.+'
+    runtime 'org.hibernate:hibernate-entitymanager:4.3.+'
+
+    runtime 'org.hsqldb:hsqldb:2.3.+'
 }
 
 task wrapper(type: Wrapper) {

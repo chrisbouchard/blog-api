@@ -1,11 +1,11 @@
 package net.upliftinglemma.blog.controllers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.upliftinglemma.blog.assemblers.CommentResourceAssembler;
 import net.upliftinglemma.blog.model.Comment;
 import net.upliftinglemma.blog.model.CommentResource;
+import net.upliftinglemma.blog.services.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -19,23 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/comment")
 public class CommentController {
 
+    @Autowired private CommentService commentService;
     @Autowired private CommentResourceAssembler commentResourceAssembler;
     
     @RequestMapping(method=RequestMethod.GET)
     public List<CommentResource> showAll() {
-        final List<Comment> comments = Arrays.asList(
-                Comment.createWithId(1L),
-                Comment.createWithId(2L),
-                Comment.createWithId(3L)
-                );
-        
-        return commentResourceAssembler.toResources(comments);
+        return commentResourceAssembler.toResources(commentService.findAll());
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public CommentResource show(@PathVariable Long id) {
-        final Comment comment = Comment.createWithId(id);
-        return commentResourceAssembler.toResource(comment);
+        return commentResourceAssembler.toResource(commentService.findOne(id));
     }
 
 }
