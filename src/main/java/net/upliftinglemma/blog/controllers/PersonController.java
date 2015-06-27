@@ -2,9 +2,9 @@ package net.upliftinglemma.blog.controllers;
 
 import java.util.List;
 
-import net.upliftinglemma.blog.assemblers.PersonResourceAssembler;
 import net.upliftinglemma.blog.model.Person;
-import net.upliftinglemma.blog.model.PersonResource;
+import net.upliftinglemma.blog.resources.PersonResource;
+import net.upliftinglemma.blog.resources.PersonResourceAssembler;
 import net.upliftinglemma.blog.services.PersonService;
 
 import org.springframework.beans.factory.annotation.Autowired;

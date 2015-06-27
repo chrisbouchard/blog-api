@@ -1,4 +1,4 @@
-package net.upliftinglemma.blog.model;
+package net.upliftinglemma.blog.resources;
 
 import org.springframework.hateoas.ResourceSupport;
 

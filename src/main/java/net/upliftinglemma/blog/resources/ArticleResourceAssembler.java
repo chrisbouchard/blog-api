@@ -1,7 +1,6 @@
-package net.upliftinglemma.blog.assemblers;
+package net.upliftinglemma.blog.resources;
 
 import net.upliftinglemma.blog.model.Article;
-import net.upliftinglemma.blog.model.ArticleResource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;

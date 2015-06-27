@@ -2,9 +2,9 @@ package net.upliftinglemma.blog.controllers;
 
 import java.util.List;
 
-import net.upliftinglemma.blog.assemblers.CommentResourceAssembler;
 import net.upliftinglemma.blog.model.Comment;
-import net.upliftinglemma.blog.model.CommentResource;
+import net.upliftinglemma.blog.resources.CommentResource;
+import net.upliftinglemma.blog.resources.CommentResourceAssembler;
 import net.upliftinglemma.blog.services.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;

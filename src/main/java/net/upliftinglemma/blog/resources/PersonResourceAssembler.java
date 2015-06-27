@@ -1,7 +1,6 @@
-package net.upliftinglemma.blog.assemblers;
+package net.upliftinglemma.blog.resources;
 
 import net.upliftinglemma.blog.model.Person;
-import net.upliftinglemma.blog.model.PersonResource;
 
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;

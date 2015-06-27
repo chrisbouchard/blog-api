@@ -2,11 +2,11 @@ package net.upliftinglemma.blog.controllers;
 
 import java.util.List;
 
-import net.upliftinglemma.blog.assemblers.ArticleResourceAssembler;
-import net.upliftinglemma.blog.assemblers.CommentResourceAssembler;
 import net.upliftinglemma.blog.model.Article;
-import net.upliftinglemma.blog.model.ArticleResource;
-import net.upliftinglemma.blog.model.CommentResource;
+import net.upliftinglemma.blog.resources.ArticleResource;
+import net.upliftinglemma.blog.resources.ArticleResourceAssembler;
+import net.upliftinglemma.blog.resources.CommentResource;
+import net.upliftinglemma.blog.resources.CommentResourceAssembler;
 import net.upliftinglemma.blog.services.ArticleService;
 import net.upliftinglemma.blog.services.CommentService;
 
