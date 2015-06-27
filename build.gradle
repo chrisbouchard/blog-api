@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.4.RELEASE')
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.4.RELEASE'
     }
 }
 
@@ -20,8 +20,10 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
-    testCompile('junit:junit')
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.hateoas:spring-hateoas'
+    compile 'org.springframework.plugin:spring-plugin-core'
+    testCompile 'junit:junit'
 }
 
 task wrapper(type: Wrapper) {
