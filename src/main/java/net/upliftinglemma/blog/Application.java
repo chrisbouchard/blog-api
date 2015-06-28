@@ -28,16 +28,16 @@ public class Application {
     
     @Bean
     public DataSource dataSource() {
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        final EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder.setType(EmbeddedDatabaseType.HSQL).build();
     }
     
     @Bean
     public EntityManagerFactory entityManagerFactory(final DataSource dataSource) {
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
 
-        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        final LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("net.upliftinglemma.blog.model");
         factory.setDataSource(dataSource);
@@ -49,7 +49,7 @@ public class Application {
     @Bean
     public PlatformTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
 
-      JpaTransactionManager txManager = new JpaTransactionManager();
+      final JpaTransactionManager txManager = new JpaTransactionManager();
       txManager.setEntityManagerFactory(entityManagerFactory);
       return txManager;
     }

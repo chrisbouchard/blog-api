@@ -11,8 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentService {
     
-    @Autowired private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
     
+    @Autowired
+    public CommentService(final CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
+
     @Transactional
     public Comment findOne(final Long id) {
         return commentRepository.findOne(id);

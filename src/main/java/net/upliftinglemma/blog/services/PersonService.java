@@ -11,8 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonService {
     
-    @Autowired private PersonRepository personRepository;
+    private final PersonRepository personRepository;
     
+    @Autowired
+    public PersonService(final PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
     @Transactional
     public Person findOne(final Long id) {
         return personRepository.findOne(id);

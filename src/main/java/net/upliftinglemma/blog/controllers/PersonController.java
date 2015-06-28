@@ -19,9 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/person")
 public class PersonController {
     
-    @Autowired private PersonService personService;
-    @Autowired private PersonResourceAssembler personResourceAssembler;
+    private final PersonService personService;
+    private final PersonResourceAssembler personResourceAssembler;
     
+    @Autowired
+    public PersonController(final PersonService personService, final PersonResourceAssembler personResourceAssembler) {
+        this.personService = personService;
+        this.personResourceAssembler = personResourceAssembler;
+    }
+
     @RequestMapping(method=RequestMethod.GET)
     public List<PersonResource> showAll() {
         return personResourceAssembler.toResources(personService.findAll());

@@ -1,6 +1,5 @@
 package net.upliftinglemma.blog.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -27,10 +26,7 @@ public class Article implements Identifiable<Long> {
 
     private Date createdAt;
     private Date updatedAt;
-    
-    public Article() {
-        this.comments = new ArrayList<>();
-    }
+
 
     @Override
     @Id @GeneratedValue
@@ -68,7 +64,7 @@ public class Article implements Identifiable<Long> {
     }
 
 
-    @OneToMany
+    @OneToMany(mappedBy="parent")
     public List<Comment> getComments() {
         return comments;
     }
@@ -110,16 +106,14 @@ public class Article implements Identifiable<Long> {
         
         final Article other = (Article) obj;
 
-        return Objects.equals(this.getId(), other.getId())
-                && Objects.equals(this.getAuthor(), other.getAuthor())
+        return Objects.equals(this.getAuthor(), other.getAuthor())
                 && Objects.equals(this.getTitle(), other.getTitle())
-                && Objects.equals(this.getBody(), other.getBody())
-                && Objects.equals(this.getComments(), other.getComments());
+                && Objects.equals(this.getBody(), other.getBody());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getId(), this.getAuthor(), this.getTitle(), this.getBody(), this.getComments());
+        return Objects.hash(this.getAuthor(), this.getTitle(), this.getBody());
     }
 
 }

@@ -18,6 +18,8 @@ public class Comment implements Identifiable<Long> {
     private Long id;
     private Person author;
     private String body;
+    
+    private Article parent;
 
     private Date createdAt;
     private Date updatedAt;
@@ -48,6 +50,16 @@ public class Comment implements Identifiable<Long> {
 
     public void setBody(final String body) {
         this.body = body;
+    }
+
+
+    @ManyToOne
+    public Article getParent() {
+        return parent;
+    }
+
+    public void setParent(Article parent) {
+        this.parent = parent;
     }
 
 
@@ -83,14 +95,14 @@ public class Comment implements Identifiable<Long> {
         
         final Comment other = (Comment) obj;
         
-        return Objects.equals(this.getId(), other.getId()) &&
-                Objects.equals(this.getAuthor(), other.getAuthor()) &&
-                Objects.equals(this.getBody(), other.getBody());
+        return Objects.equals(this.getAuthor(), other.getAuthor()) &&
+                Objects.equals(this.getBody(), other.getBody()) &&
+                Objects.equals(this.getParent(), other.getParent());
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(this.getId(), this.getAuthor(), this.getBody());
+        return Objects.hash(this.getAuthor(), this.getBody(), this.getParent());
     }
 
 }

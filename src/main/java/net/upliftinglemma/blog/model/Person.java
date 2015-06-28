@@ -1,10 +1,12 @@
 package net.upliftinglemma.blog.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.hateoas.Identifiable;
 
@@ -13,6 +15,9 @@ public class Person implements Identifiable<Long> {
     
     private Long id;
     private String name;
+    
+    private List<Article> articles;
+    private List<Comment> comments;
 
 
     @Override
@@ -34,6 +39,25 @@ public class Person implements Identifiable<Long> {
     }
 
     
+    @OneToMany(mappedBy="author")
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(final List<Article> articles) {
+        this.articles = articles;
+    }
+
+    @OneToMany(mappedBy="author")
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(final List<Comment> comments) {
+        this.comments = comments;
+    }
+
+
     @Override
     public boolean equals(final Object obj) {
         if (obj == null)
@@ -47,13 +71,12 @@ public class Person implements Identifiable<Long> {
         
         final Person other = (Person) obj;
         
-        return Objects.equals(this.getId(), other.getId()) &&
-                Objects.equals(this.getName(), other.getName());
+        return Objects.equals(this.getName(), other.getName());
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(this.getId(), this.getName());
+        return Objects.hash(this.getName());
     }
 
 }

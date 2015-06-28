@@ -22,19 +22,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/article")
 public class ArticleController {
 
-    @Autowired private ArticleService articleService;
-    @Autowired private ArticleResourceAssembler articleResourceAssembler;
+    private final ArticleService articleService;
+    private final ArticleResourceAssembler articleResourceAssembler;
 
-    @Autowired private CommentService commentService;
-    @Autowired private CommentResourceAssembler commentResourceAssembler;
+    private final CommentService commentService;
+    private final CommentResourceAssembler commentResourceAssembler;
     
+    @Autowired
+    public ArticleController(final ArticleService articleService, final ArticleResourceAssembler articleResourceAssembler,
+            final CommentService commentService, final CommentResourceAssembler commentResourceAssembler) {
+        this.articleService = articleService;
+        this.articleResourceAssembler = articleResourceAssembler;
+        this.commentService = commentService;
+        this.commentResourceAssembler = commentResourceAssembler;
+    }
+
     @RequestMapping(method=RequestMethod.GET)
     public List<ArticleResource> showAll() {
         return articleResourceAssembler.toResources(articleService.findAll());
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public ArticleResource show(@PathVariable Long id) {
+    public ArticleResource show(@PathVariable final Long id) {
         return articleResourceAssembler.toResource(articleService.findOne(id));
     }
     
