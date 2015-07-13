@@ -1,5 +1,6 @@
 package net.upliftinglemma.blog.resources;
 
+import net.upliftinglemma.blog.controllers.ArticleController;
 import net.upliftinglemma.blog.model.Article;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class ArticleResourceAssembler extends ResourceAssemblerSupport<Article, 
     @Autowired private EntityLinks entityLinks;
 
     public ArticleResourceAssembler() {
-        super(Article.class, ArticleResource.class);
+        super(ArticleController.class, ArticleResource.class);
     }
 
     @Override
@@ -22,9 +23,11 @@ public class ArticleResourceAssembler extends ResourceAssemblerSupport<Article, 
 
         resource.setBody(entity.getBody());
         resource.setTitle(entity.getTitle());
-
-        resource.add(entityLinks.linkForSingleResource(entity.getAuthor()).withRel("author"));
-        resource.add(entityLinks.linkForSingleResource(entity).slash("comments").withRel("comments"));
+        
+        resource.add(
+                entityLinks.linkForSingleResource(entity.getAuthor()).withRel("author"),
+                entityLinks.linkForSingleResource(entity).slash("comments").withRel("comments")
+                );
 
         return resource;
     }

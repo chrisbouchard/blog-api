@@ -1,5 +1,6 @@
 package net.upliftinglemma.blog.resources;
 
+import net.upliftinglemma.blog.controllers.PersonController;
 import net.upliftinglemma.blog.model.Person;
 
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class PersonResourceAssembler extends ResourceAssemblerSupport<Person, PersonResource> {
     
     public PersonResourceAssembler() {
-        super(Person.class, PersonResource.class);
+        super(PersonController.class, PersonResource.class);
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @ExposesResourceFor(Person.class)
-@RequestMapping("/person")
+@RequestMapping(value="/person", produces="application/json")
 public class PersonController {
     
     private final PersonService personService;
@@ -33,7 +33,7 @@ public class PersonController {
         return personResourceAssembler.toResources(personService.findAll());
     }
     
-    @RequestMapping(value="/{id}", method=RequestMethod.GET)
+    @RequestMapping(value="{id}", method=RequestMethod.GET)
     public PersonResource show(@PathVariable final Long id) {
         return personResourceAssembler.toResource(personService.findOne(id));
     }

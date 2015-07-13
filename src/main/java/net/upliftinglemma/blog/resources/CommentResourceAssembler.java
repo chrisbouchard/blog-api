@@ -1,5 +1,6 @@
 package net.upliftinglemma.blog.resources;
 
+import net.upliftinglemma.blog.controllers.CommentController;
 import net.upliftinglemma.blog.model.Comment;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class CommentResourceAssembler extends ResourceAssemblerSupport<Comment, 
     @Autowired private EntityLinks entityLinks;
 
     public CommentResourceAssembler() {
-        super(Comment.class, CommentResource.class);
+        super(CommentController.class, CommentResource.class);
     }
 
     @Override

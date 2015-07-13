@@ -25,6 +25,9 @@ jar {
 dependencies {
     compile 'javax:javaee-api:7.0'
     
+    compile 'org.apache.commons:commons-lang3:3.+'
+    compile 'org.apache.commons:commons-collections4:4.+'
+    
     compile 'org.springframework:spring-orm:4.1.+'
     compile 'org.springframework.boot:spring-boot-starter-web:1.2.+'
     compile 'org.springframework.data:spring-data-jpa:1.8.0.RELEASE'

@@ -1,0 +1,48 @@
+package net.upliftinglemma.blog;
+
+import java.util.Iterator;
+
+import javax.transaction.Transactional;
+
+import net.upliftinglemma.blog.dao.PersonRepository;
+import net.upliftinglemma.blog.model.Person;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DatabaseSetup implements ApplicationListener<ContextRefreshedEvent> {
+    
+    private static final Log LOG = LogFactory.getLog(DatabaseSetup.class);
+    
+    private final PersonRepository personRepository;
+    
+    @Autowired
+    public DatabaseSetup(final PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
+    @Override
+    @Transactional
+    public void onApplicationEvent(final ContextRefreshedEvent event) {
+        final Iterator<Person> persons = personRepository.findAll().iterator();
+        
+        // Make sure there are some persons
+        if (!persons.hasNext()) {
+            LOG.info("Creating some persons...");
+
+            final Person chris = new Person();
+            chris.setName("chris");
+            personRepository.save(chris);
+
+            final Person mary = new Person();
+            mary.setName("mary");
+            personRepository.save(mary);
+        }
+    }
+
+}
