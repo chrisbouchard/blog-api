@@ -5,10 +5,11 @@ import java.util.List;
 import net.upliftinglemma.blog.model.Article;
 import net.upliftinglemma.blog.resources.ArticleResource;
 import net.upliftinglemma.blog.resources.ArticleResourceAssembler;
+import net.upliftinglemma.blog.resources.ArticleSummaryResource;
+import net.upliftinglemma.blog.resources.ArticleSummaryResourceAssembler;
 import net.upliftinglemma.blog.resources.CommentResource;
 import net.upliftinglemma.blog.resources.CommentResourceAssembler;
 import net.upliftinglemma.blog.services.ArticleService;
-import net.upliftinglemma.blog.services.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -23,23 +24,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final ArticleResourceAssembler articleResourceAssembler;
 
-    private final CommentService commentService;
+    private final ArticleResourceAssembler articleResourceAssembler;
+    private final ArticleSummaryResourceAssembler articleSummaryResourceAssembler;
     private final CommentResourceAssembler commentResourceAssembler;
     
     @Autowired
     public ArticleController(final ArticleService articleService, final ArticleResourceAssembler articleResourceAssembler,
-            final CommentService commentService, final CommentResourceAssembler commentResourceAssembler) {
+            final ArticleSummaryResourceAssembler articleSummaryResourceAssembler,
+            final CommentResourceAssembler commentResourceAssembler) {
         this.articleService = articleService;
         this.articleResourceAssembler = articleResourceAssembler;
-        this.commentService = commentService;
+        this.articleSummaryResourceAssembler = articleSummaryResourceAssembler;
         this.commentResourceAssembler = commentResourceAssembler;
     }
 
+    // TODO: Consider paging
     @RequestMapping(method=RequestMethod.GET)
-    public List<ArticleResource> showAll() {
-        return articleResourceAssembler.toResources(articleService.findAll());
+    public List<ArticleSummaryResource> showAll() {
+        return articleSummaryResourceAssembler.toResources(articleService.findAll());
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
@@ -48,9 +51,9 @@ public class ArticleController {
     }
     
     @RequestMapping(value="/{id}/comments", method=RequestMethod.GET)
-    public List<CommentResource> showComments() {
-        // TODO: Only get comments for this article.
-        return commentResourceAssembler.toResources(commentService.findAll());
+    public List<CommentResource> showComments(@PathVariable final Long id) {
+        final Article article = articleService.findOne(id);
+        return commentResourceAssembler.toResources(article.getComments());
     }
 
 }
