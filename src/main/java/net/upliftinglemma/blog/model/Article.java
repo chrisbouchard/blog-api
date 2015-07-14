@@ -22,6 +22,7 @@ public class Article implements Identifiable<Long> {
     private String title;
     private String body;
 
+    private Blog parent;
     private List<Comment> comments;
 
     private Date createdAt;
@@ -63,6 +64,15 @@ public class Article implements Identifiable<Long> {
         this.body = body;
     }
 
+
+    @ManyToOne
+    public Blog getParent() {
+        return parent;
+    }
+
+    public void setParent(Blog parent) {
+        this.parent = parent;
+    }
 
     @OneToMany(mappedBy="parent")
     public List<Comment> getComments() {
