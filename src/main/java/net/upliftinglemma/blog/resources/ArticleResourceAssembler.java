@@ -11,10 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ArticleResourceAssembler extends ResourceAssemblerSupport<Article, ArticleResource> {
     
-    @Autowired private EntityLinks entityLinks;
+    private final EntityLinks entityLinks;
 
-    public ArticleResourceAssembler() {
+    @Autowired
+    public ArticleResourceAssembler(final EntityLinks entityLinks) {
         super(ArticleController.class, ArticleResource.class);
+        this.entityLinks = entityLinks;
     }
 
     @Override

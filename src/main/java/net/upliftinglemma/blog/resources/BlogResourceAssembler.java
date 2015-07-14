@@ -9,10 +9,12 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 
 public class BlogResourceAssembler extends ResourceAssemblerSupport<Blog, BlogResource> {
 
-    @Autowired private EntityLinks entityLinks;
+    private final EntityLinks entityLinks;
 
-    public BlogResourceAssembler() {
+    @Autowired
+    public BlogResourceAssembler(final EntityLinks entityLinks) {
         super(BlogController.class, BlogResource.class);
+        this.entityLinks = entityLinks;
     }
 
     @Override

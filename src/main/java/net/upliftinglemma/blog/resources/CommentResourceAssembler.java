@@ -11,10 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommentResourceAssembler extends ResourceAssemblerSupport<Comment, CommentResource> {
     
-    @Autowired private EntityLinks entityLinks;
+    private final EntityLinks entityLinks;
 
-    public CommentResourceAssembler() {
+    @Autowired
+    public CommentResourceAssembler(final EntityLinks entityLinks) {
         super(CommentController.class, CommentResource.class);
+        this.entityLinks = entityLinks;
     }
 
     @Override
