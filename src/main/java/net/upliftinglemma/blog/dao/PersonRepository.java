@@ -1,13 +1,13 @@
 package net.upliftinglemma.blog.dao;
 
-import java.util.List;
-
 import net.upliftinglemma.blog.model.Person;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PersonRepository extends CrudRepository<Person, Long> {
+@Repository
+public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
     
-    List<Person> findByName(String name);
+    Person findByName(String name);
     
 }

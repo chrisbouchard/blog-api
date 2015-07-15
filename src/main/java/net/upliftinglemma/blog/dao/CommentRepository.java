@@ -2,6 +2,8 @@ package net.upliftinglemma.blog.dao;
 
 import net.upliftinglemma.blog.model.Comment;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CommentRepository extends CrudRepository<Comment, Long> { }
+@Repository
+public interface CommentRepository extends PagingAndSortingRepository<Comment, Long> { }
