@@ -1,13 +1,13 @@
 package net.upliftinglemma.blog.dao;
 
-import net.upliftinglemma.blog.model.Person;
+import net.upliftinglemma.blog.model.Blog;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
+public interface BlogRepository extends PagingAndSortingRepository<Blog, Long> {
     
-    Person findByName(String name);
+    public Blog findByName(String name);
     
 }

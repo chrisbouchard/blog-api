@@ -1,7 +1,5 @@
 package net.upliftinglemma.blog;
 
-import java.util.Iterator;
-
 import javax.transaction.Transactional;
 
 import net.upliftinglemma.blog.dao.PersonRepository;
@@ -29,10 +27,10 @@ public class DatabaseSetup implements ApplicationListener<ContextRefreshedEvent>
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
-        final Iterator<Person> persons = personRepository.findAll().iterator();
+        final long count = personRepository.count();
         
         // Make sure there are some persons
-        if (!persons.hasNext()) {
+        if (count == 0) {
             LOG.info("Creating some persons...");
 
             final Person chris = new Person();
