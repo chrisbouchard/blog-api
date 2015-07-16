@@ -21,8 +21,8 @@ public class BlogResourceAssembler extends ResourceAssemblerSupport<Blog, BlogRe
     public BlogResource toResource(final Blog entity) {
         final BlogResource resource = createResourceWithId(entity.getId(), entity);
 
-        resource.setTitle(entity.getTitle());
-        resource.setSubtitle(entity.getSubtitle());
+        resource.setName(entity.getName());
+        resource.setTagline(entity.getTagline());
         resource.setDescription(entity.getDescription());
         
         resource.add(

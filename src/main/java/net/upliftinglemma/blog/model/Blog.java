@@ -15,8 +15,8 @@ import org.springframework.hateoas.Identifiable;
 public class Blog implements Identifiable<Long> {
 
     private Long id;
-    private String title;
-    private String subtitle;
+    private String name;
+    private String tagline;
     
     private String description;
 
@@ -36,20 +36,20 @@ public class Blog implements Identifiable<Long> {
     }
 
     @Column(unique=true)
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String title) {
+        this.name = title;
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public String getTagline() {
+        return tagline;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public void setTagline(String subtitle) {
+        this.tagline = subtitle;
     }
 
 

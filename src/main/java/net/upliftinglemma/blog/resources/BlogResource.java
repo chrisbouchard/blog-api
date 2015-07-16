@@ -4,24 +4,24 @@ import org.springframework.hateoas.ResourceSupport;
 
 public class BlogResource extends ResourceSupport {
 
-    private String title;
-    private String subtitle;
+    private String name;
+    private String tagline;
     private String description;
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String title) {
+        this.name = title;
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public String getTagline() {
+        return tagline;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public void setTagline(String subtitle) {
+        this.tagline = subtitle;
     }
 
     public String getDescription() {
