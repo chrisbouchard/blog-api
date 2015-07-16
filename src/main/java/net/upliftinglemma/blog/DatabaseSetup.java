@@ -37,6 +37,7 @@ public class DatabaseSetup implements ApplicationListener<ContextRefreshedEvent>
 
             final Person chris = new Person();
             chris.setName("chris");
+            chris.setAdmin(true);
             personRepository.save(chris);
 
             final Person mary = new Person();
