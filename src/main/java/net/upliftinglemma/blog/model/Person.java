@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
@@ -14,19 +15,19 @@ import javax.persistence.Table;
 import org.springframework.hateoas.Identifiable;
 
 @Entity
-@Table(indexes={@Index(columnList="name")})
+@Table(indexes = { @Index(columnList = "name") })
 public class Person implements Identifiable<Long> {
 
     private Long id;
     private String name;
     private boolean isAdmin;
-    
+
     private List<Article> articles;
     private List<Comment> comments;
 
-
     @Override
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -35,7 +36,7 @@ public class Person implements Identifiable<Long> {
         this.id = id;
     }
 
-    @Column(unique=true)
+    @Column(unique = true)
     public String getName() {
         return name;
     }
@@ -44,17 +45,15 @@ public class Person implements Identifiable<Long> {
         this.name = name;
     }
 
-    
     public boolean isAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(boolean isAdmin) {
+    public void setAdmin(final boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 
-
-    @OneToMany(mappedBy="author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     public List<Article> getArticles() {
         return articles;
     }
@@ -63,7 +62,7 @@ public class Person implements Identifiable<Long> {
         this.articles = articles;
     }
 
-    @OneToMany(mappedBy="author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     public List<Comment> getComments() {
         return comments;
     }
@@ -72,26 +71,28 @@ public class Person implements Identifiable<Long> {
         this.comments = comments;
     }
 
-
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        
-        if (obj == this)
-            return true;
+        }
 
-        if (!(obj instanceof Person))
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Person)) {
             return false;
-        
+        }
+
         final Person other = (Person) obj;
-        
-        return Objects.equals(this.getName(), other.getName());
+
+        return Objects.equals(getName(), other.getName());
     }
-    
+
     @Override
     public int hashCode() {
-        return Objects.hash(this.getName());
+        return Objects.hash(getName());
     }
 
 }

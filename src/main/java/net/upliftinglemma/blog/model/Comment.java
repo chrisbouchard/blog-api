@@ -14,19 +14,19 @@ import org.springframework.hateoas.Identifiable;
 
 @Entity
 public class Comment implements Identifiable<Long> {
-    
+
     private Long id;
     private Person author;
     private String body;
-    
+
     private Article parent;
 
     private Date createdAt;
     private Date updatedAt;
 
-
     @Override
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -52,16 +52,14 @@ public class Comment implements Identifiable<Long> {
         this.body = body;
     }
 
-
     @ManyToOne
     public Article getParent() {
         return parent;
     }
 
-    public void setParent(Article parent) {
+    public void setParent(final Article parent) {
         this.parent = parent;
     }
-
 
     @CreationTimestamp
     public Date getCreatedAt() {
@@ -69,7 +67,7 @@ public class Comment implements Identifiable<Long> {
     }
 
     public void setCreatedAt(final Date publishedAt) {
-        this.createdAt = publishedAt;
+        createdAt = publishedAt;
     }
 
     @UpdateTimestamp
@@ -80,29 +78,30 @@ public class Comment implements Identifiable<Long> {
     public void setUpdatedAt(final Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
-    
+
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        
-        if (obj == this)
-            return true;
+        }
 
-        if (!(obj instanceof Comment))
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Comment)) {
             return false;
-        
+        }
+
         final Comment other = (Comment) obj;
-        
-        return Objects.equals(this.getAuthor(), other.getAuthor()) &&
-                Objects.equals(this.getBody(), other.getBody()) &&
-                Objects.equals(this.getParent(), other.getParent());
+
+        return Objects.equals(getAuthor(), other.getAuthor()) && Objects.equals(getBody(), other.getBody())
+                && Objects.equals(getParent(), other.getParent());
     }
-    
+
     @Override
     public int hashCode() {
-        return Objects.hash(this.getAuthor(), this.getBody(), this.getParent());
+        return Objects.hash(getAuthor(), getBody(), getParent());
     }
 
 }

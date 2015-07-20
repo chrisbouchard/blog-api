@@ -1,16 +1,16 @@
 package net.upliftinglemma.blog.resources;
 
-import net.upliftinglemma.blog.controllers.CommentController;
-import net.upliftinglemma.blog.model.Comment;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
+import net.upliftinglemma.blog.controllers.CommentController;
+import net.upliftinglemma.blog.model.Comment;
+
 @Component
 public class CommentResourceAssembler extends ResourceAssemblerSupport<Comment, CommentResource> {
-    
+
     private final EntityLinks entityLinks;
 
     @Autowired

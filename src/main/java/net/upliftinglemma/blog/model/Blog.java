@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -17,7 +18,7 @@ public class Blog implements Identifiable<Long> {
     private Long id;
     private String name;
     private String tagline;
-    
+
     private String description;
 
     private List<Article> articles;
@@ -26,7 +27,8 @@ public class Blog implements Identifiable<Long> {
     private Date updatedAt;
 
     @Override
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -35,48 +37,45 @@ public class Blog implements Identifiable<Long> {
         this.id = id;
     }
 
-    @Column(unique=true)
+    @Column(unique = true)
     public String getName() {
         return name;
     }
 
-    public void setName(String title) {
-        this.name = title;
+    public void setName(final String title) {
+        name = title;
     }
 
     public String getTagline() {
         return tagline;
     }
 
-    public void setTagline(String subtitle) {
-        this.tagline = subtitle;
+    public void setTagline(final String subtitle) {
+        tagline = subtitle;
     }
-
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
-
-    @OneToMany(mappedBy="parent")
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     public List<Article> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<Article> articles) {
+    public void setArticles(final List<Article> articles) {
         this.articles = articles;
     }
-
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(final Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -84,7 +83,7 @@ public class Blog implements Identifiable<Long> {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(final Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 

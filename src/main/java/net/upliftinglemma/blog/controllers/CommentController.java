@@ -2,10 +2,7 @@ package net.upliftinglemma.blog.controllers;
 
 import java.util.List;
 
-import net.upliftinglemma.blog.model.Comment;
-import net.upliftinglemma.blog.resources.CommentResource;
-import net.upliftinglemma.blog.resources.CommentResourceAssembler;
-import net.upliftinglemma.blog.services.CommentService;
+import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -14,28 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.upliftinglemma.blog.dao.CommentRepository;
+import net.upliftinglemma.blog.model.Comment;
+import net.upliftinglemma.blog.resources.CommentResource;
+import net.upliftinglemma.blog.resources.CommentResourceAssembler;
+
 @RestController
 @ExposesResourceFor(Comment.class)
-@RequestMapping("/comment")
+@RequestMapping(value = "/comment", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 public class CommentController {
 
-    private final CommentService commentService;
+    private final CommentRepository commentRepository;
     private final CommentResourceAssembler commentResourceAssembler;
-    
+
     @Autowired
-    public CommentController(final CommentService commentService, final CommentResourceAssembler commentResourceAssembler) {
-        this.commentService = commentService;
+    public CommentController(final CommentRepository commentRepository,
+            final CommentResourceAssembler commentResourceAssembler) {
+        this.commentRepository = commentRepository;
         this.commentResourceAssembler = commentResourceAssembler;
     }
 
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<CommentResource> showAll() {
-        return commentResourceAssembler.toResources(commentService.findAll());
+        return commentResourceAssembler.toResources(commentRepository.findAll());
     }
-    
-    @RequestMapping(value="/{id}", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public CommentResource show(@PathVariable final Long id) {
-        return commentResourceAssembler.toResource(commentService.findOne(id));
+        return commentResourceAssembler.toResource(commentRepository.findOne(id));
     }
 
 }

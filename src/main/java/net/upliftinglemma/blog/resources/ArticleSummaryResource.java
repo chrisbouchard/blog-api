@@ -11,7 +11,7 @@ public class ArticleSummaryResource extends ResourceSupport {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -19,7 +19,7 @@ public class ArticleSummaryResource extends ResourceSupport {
         return commentCount;
     }
 
-    public void setCommentCount(int commentCount) {
+    public void setCommentCount(final int commentCount) {
         this.commentCount = commentCount;
     }
 

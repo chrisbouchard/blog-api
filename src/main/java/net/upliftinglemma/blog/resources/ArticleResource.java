@@ -11,7 +11,7 @@ public class ArticleResource extends ResourceSupport {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -19,7 +19,7 @@ public class ArticleResource extends ResourceSupport {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(final String body) {
         this.body = body;
     }
 

@@ -22,16 +22,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class Application {
 
-    public static void main(String... args) {
+    public static void main(final String... args) {
         SpringApplication.run(Application.class, args);
     }
-    
+
     @Bean
     public DataSource dataSource() {
         final EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder.setType(EmbeddedDatabaseType.HSQL).build();
     }
-    
+
     @Bean
     public EntityManagerFactory entityManagerFactory(final DataSource dataSource) {
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -45,13 +45,13 @@ public class Application {
 
         return factory.getObject();
     }
-    
+
     @Bean
     public PlatformTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
 
-      final JpaTransactionManager txManager = new JpaTransactionManager();
-      txManager.setEntityManagerFactory(entityManagerFactory);
-      return txManager;
+        final JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(entityManagerFactory);
+        return txManager;
     }
 
 }
