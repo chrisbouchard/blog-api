@@ -1,15 +1,10 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.4.RELEASE'
-    }
+plugins {
+    id 'application'
+    id 'java'
+    id 'eclipse'
+    
+    id 'org.flywaydb.flyway' version '3.2'
 }
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'spring-boot'
 
 repositories {
     mavenCentral()
@@ -17,6 +12,8 @@ repositories {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+mainClassName = 'net.upliftinglemma.blog.Application'
 
 jar {
     version = '0.1.0'
@@ -30,7 +27,7 @@ dependencies {
     
     compile 'org.springframework:spring-orm:4.1.+'
     compile 'org.springframework.boot:spring-boot-starter-web:1.2.+'
-    compile 'org.springframework.data:spring-data-jpa:1.8.0.RELEASE'
+    compile 'org.springframework.data:spring-data-jpa:1.8.+'
     compile 'org.springframework.hateoas:spring-hateoas:0.17.+'
     compile 'org.springframework.plugin:spring-plugin-core:1.2.+'
 
