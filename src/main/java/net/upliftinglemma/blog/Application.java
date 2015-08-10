@@ -5,6 +5,8 @@ import javax.sql.DataSource;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.hateoas.config.EnableEntityLinks;
@@ -16,14 +18,19 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
 @EnableEntityLinks
 @EnableJpaRepositories
 @EnableTransactionManagement
-public class Application {
+@SpringBootApplication
+public class Application extends SpringBootServletInitializer {
 
     public static void main(String... args) {
         SpringApplication.run(Application.class, args);
+    }
+    
+    @Override
+    protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder) {
+        return builder.sources(Application.class);
     }
     
     @Bean
@@ -33,24 +40,24 @@ public class Application {
     }
     
     @Bean
-    public EntityManagerFactory entityManagerFactory(final DataSource dataSource) {
+    public EntityManagerFactory entityManagerFactory() {
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
 
         final LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("net.upliftinglemma.blog.model");
-        factory.setDataSource(dataSource);
+        factory.setDataSource(dataSource());
         factory.afterPropertiesSet();
 
         return factory.getObject();
     }
     
     @Bean
-    public PlatformTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
+    public PlatformTransactionManager transactionManager() {
 
       final JpaTransactionManager txManager = new JpaTransactionManager();
-      txManager.setEntityManagerFactory(entityManagerFactory);
+      txManager.setEntityManagerFactory(entityManagerFactory());
       return txManager;
     }
 

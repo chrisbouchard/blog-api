@@ -1,10 +1,19 @@
+buildscript {
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE'
+    }
+}
+
 plugins {
     id 'application'
     id 'java'
     id 'eclipse'
+    id 'war'
     
     id 'org.flywaydb.flyway' version '3.2'
 }
+
+apply plugin: 'spring-boot'
 
 repositories {
     mavenCentral()
@@ -13,38 +22,34 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+version = '0.1.0'
+
 mainClassName = 'net.upliftinglemma.blog.Application'
 
-jar {
-    version = '0.1.0'
-}
-
 dependencies {
-    compile 'javax:javaee-api:7.0'
+    compile 'log4j:log4j'
     
     compile 'org.apache.commons:commons-lang3:3.+'
     compile 'org.apache.commons:commons-collections4:4.+'
     
-    compile 'org.springframework:spring-orm:4.1.+'
-    compile 'org.springframework.boot:spring-boot-starter-web:1.2.+'
-    compile 'org.springframework.data:spring-data-jpa:1.8.+'
-    compile 'org.springframework.hateoas:spring-hateoas:0.17.+'
-    compile 'org.springframework.plugin:spring-plugin-core:1.2.+'
+    compile 'org.springframework.boot:spring-boot-starter-data-rest'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    testCompile 'junit:junit:4.+'
+    testCompile 'junit:junit'
 
     testCompile 'org.mockito:mockito-all:2.0.+'
     
-    runtime 'org.aspectj:aspectjweaver:1.8.+'
+    runtime 'org.aspectj:aspectjweaver'
 
-    runtime 'org.hibernate:hibernate-core:4.3.+'
-    runtime 'org.hibernate:hibernate-entitymanager:4.3.+'
+    runtime 'org.hibernate:hibernate-entitymanager'
 
-    runtime 'org.hsqldb:hsqldb:2.3.+'
+    runtime 'org.hsqldb:hsqldb'
+    
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.5'
 }
 
 // Make Eclipse use the JRE matching version used by project, not the
