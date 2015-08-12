@@ -47,7 +47,6 @@ public class SpringConfig {
     public PlatformTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
         final JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(entityManagerFactory);
-        txManager.setDataSource(dataSource());
         return txManager;
     }
     
