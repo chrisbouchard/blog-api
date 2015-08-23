@@ -27,6 +27,7 @@ public class ArticleSummaryResourceAssembler extends ResourceAssemblerSupport<Ar
         resource.setCommentCount(entity.getComments().size());
 
         resource.add(entityLinks.linkForSingleResource(entity.getAuthor()).withRel("author"));
+        resource.add(entityLinks.linkForSingleResource(entity).slash("comments").withRel("comments"));
 
         return resource;
     }

@@ -1,14 +1,17 @@
 buildscript {
-    repositories {
-        mavenCentral()
-    }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.4.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE'
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'war'
+    
+    id 'org.flywaydb.flyway' version '3.2'
+}
+
 apply plugin: 'spring-boot'
 
 repositories {
@@ -18,36 +21,38 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-jar {
-    version = '0.1.0'
+version = '0.1.0'
+
+bootRepackage {
+    mainClass = 'net.upliftinglemma.blog.Application'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.5'
 }
 
 dependencies {
-    compile 'javax:javaee-api:7.0'
+    compile 'log4j:log4j'
     
     compile 'org.apache.commons:commons-lang3:3.+'
     compile 'org.apache.commons:commons-collections4:4.+'
     
-    compile 'org.springframework:spring-orm:4.1.+'
-    compile 'org.springframework.boot:spring-boot-starter-web:1.2.+'
-    compile 'org.springframework.data:spring-data-jpa:1.8.0.RELEASE'
-    compile 'org.springframework.hateoas:spring-hateoas:0.17.+'
-    compile 'org.springframework.plugin:spring-plugin-core:1.2.+'
+    compile 'org.hibernate:hibernate-validator'
+    
+    compile 'org.springframework.boot:spring-boot-starter-data-rest'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    testCompile 'junit:junit:4.+'
+    testCompile 'junit:junit'
 
     testCompile 'org.mockito:mockito-all:2.0.+'
     
-    runtime 'org.aspectj:aspectjweaver:1.8.+'
+    runtime 'org.aspectj:aspectjweaver'
 
-    runtime 'org.hibernate:hibernate-core:4.3.+'
-    runtime 'org.hibernate:hibernate-entitymanager:4.3.+'
+    runtime 'org.hibernate:hibernate-entitymanager'
 
-    runtime 'org.hsqldb:hsqldb:2.3.+'
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    runtime 'org.hsqldb:hsqldb'
+    
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
 // Make Eclipse use the JRE matching version used by project, not the
@@ -55,14 +60,14 @@ task wrapper(type: Wrapper) {
 afterEvaluate {
     if (project.sourceCompatibility != null) {
         def target = project.sourceCompatibility.toString()
-        def containerPrefix = "org.eclipse.jdt.launching.JRE_CONTAINER"
+        def containerPrefix = 'org.eclipse.jdt.launching.JRE_CONTAINER'
         def containerSuffix
 
         if (target =~ /1.[4-5]/) {
-            containerSuffix = "/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE"
+            containerSuffix = '/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE'
         }
         else if (target =~ /1.[6-8]/) {
-            containerSuffix = "/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE"
+            containerSuffix = '/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE'
         }
 
         if (containerSuffix != null) {

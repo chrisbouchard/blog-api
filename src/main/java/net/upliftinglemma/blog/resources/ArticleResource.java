@@ -6,6 +6,7 @@ public class ArticleResource extends ResourceSupport {
 
     public String title;
     public String body;
+    public int commentCount;
 
     public String getTitle() {
         return title;
@@ -21,6 +22,14 @@ public class ArticleResource extends ResourceSupport {
 
     public void setBody(final String body) {
         this.body = body;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
 }
