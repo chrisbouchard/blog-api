@@ -2,17 +2,6 @@ package net.upliftinglemma.blog.controllers;
 
 import java.util.List;
 
-import javax.ws.rs.core.MediaType;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import net.upliftinglemma.blog.dao.ArticleRepository;
 import net.upliftinglemma.blog.model.Article;
 import net.upliftinglemma.blog.resources.ArticleResource;
@@ -22,9 +11,19 @@ import net.upliftinglemma.blog.resources.ArticleSummaryResourceAssembler;
 import net.upliftinglemma.blog.resources.CommentResource;
 import net.upliftinglemma.blog.resources.CommentResourceAssembler;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 @ExposesResourceFor(Article.class)
-@RequestMapping(value = "/article", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+@RequestMapping(value = "/article", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ArticleController {
 
     private final ArticleRepository articleRepository;

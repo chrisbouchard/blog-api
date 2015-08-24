@@ -2,10 +2,9 @@ package net.upliftinglemma.blog.controllers;
 
 import java.util.List;
 
-import javax.ws.rs.core.MediaType;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +17,7 @@ import net.upliftinglemma.blog.resources.CommentResourceAssembler;
 
 @RestController
 @ExposesResourceFor(Comment.class)
-@RequestMapping(value = "/comment", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+@RequestMapping(value = "/comment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CommentController {
 
     private final CommentRepository commentRepository;
