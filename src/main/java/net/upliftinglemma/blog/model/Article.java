@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -28,9 +29,9 @@ public class Article implements Identifiable<Long> {
     private Date createdAt;
     private Date updatedAt;
 
-
     @Override
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -64,17 +65,16 @@ public class Article implements Identifiable<Long> {
         this.body = body;
     }
 
-
     @ManyToOne
     public Blog getParent() {
         return parent;
     }
 
-    public void setParent(Blog parent) {
+    public void setParent(final Blog parent) {
         this.parent = parent;
     }
 
-    @OneToMany(mappedBy="parent")
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     public List<Comment> getComments() {
         return comments;
     }
@@ -83,14 +83,13 @@ public class Article implements Identifiable<Long> {
         this.comments = comments;
     }
 
-
     @CreationTimestamp
     public Date getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(final Date publishedAt) {
-        this.createdAt = publishedAt;
+        createdAt = publishedAt;
     }
 
     @UpdateTimestamp
@@ -102,28 +101,29 @@ public class Article implements Identifiable<Long> {
         this.updatedAt = updatedAt;
     }
 
-
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        
-        if (obj == this)
-            return true;
+        }
 
-        if (!(obj instanceof Article))
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Article)) {
             return false;
-        
+        }
+
         final Article other = (Article) obj;
 
-        return Objects.equals(this.getAuthor(), other.getAuthor())
-                && Objects.equals(this.getTitle(), other.getTitle())
-                && Objects.equals(this.getBody(), other.getBody());
+        return Objects.equals(getAuthor(), other.getAuthor()) && Objects.equals(getTitle(), other.getTitle())
+                && Objects.equals(getBody(), other.getBody());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getAuthor(), this.getTitle(), this.getBody());
+        return Objects.hash(getAuthor(), getTitle(), getBody());
     }
 
 }

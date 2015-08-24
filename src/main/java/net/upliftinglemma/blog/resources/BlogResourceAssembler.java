@@ -1,11 +1,11 @@
 package net.upliftinglemma.blog.resources;
 
-import net.upliftinglemma.blog.controllers.BlogController;
-import net.upliftinglemma.blog.model.Blog;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+
+import net.upliftinglemma.blog.controllers.BlogController;
+import net.upliftinglemma.blog.model.Blog;
 
 public class BlogResourceAssembler extends ResourceAssemblerSupport<Blog, BlogResource> {
 
@@ -24,10 +24,8 @@ public class BlogResourceAssembler extends ResourceAssemblerSupport<Blog, BlogRe
         resource.setName(entity.getName());
         resource.setTagline(entity.getTagline());
         resource.setDescription(entity.getDescription());
-        
-        resource.add(
-                entityLinks.linkForSingleResource(entity).slash("articles").withRel("articles")
-                );
+
+        resource.add(entityLinks.linkForSingleResource(entity).slash("articles").withRel("articles"));
 
         return resource;
     }

@@ -10,7 +10,7 @@ public class CommentResource extends ResourceSupport {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(final String body) {
         this.body = body;
     }
 

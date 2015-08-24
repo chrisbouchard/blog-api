@@ -12,23 +12,23 @@ public class BlogResource extends ResourceSupport {
         return name;
     }
 
-    public void setName(String title) {
-        this.name = title;
+    public void setName(final String title) {
+        name = title;
     }
 
     public String getTagline() {
         return tagline;
     }
 
-    public void setTagline(String subtitle) {
-        this.tagline = subtitle;
+    public void setTagline(final String subtitle) {
+        tagline = subtitle;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
