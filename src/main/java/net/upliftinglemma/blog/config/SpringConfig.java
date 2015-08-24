@@ -1,8 +1,7 @@
-package net.upliftinglemma.blog;
+package net.upliftinglemma.blog.config;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import javax.validation.Validator;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +15,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
